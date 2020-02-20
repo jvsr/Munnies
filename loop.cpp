@@ -20,12 +20,21 @@ enum	state
 	stopped
 };
 
+void    mainMenuState();
+
+typedef void(*stateFunction)(void);
+
+stateFunction	stateFunctions[] = {
+	mainMenuState,
+};
+
 void	loop()
 {
 	enum state	curState = mainMenu;
 
 	while (curState != stopped)
 	{
+		stateFunctions[curState]();
 		refresh();
 	}
 }
