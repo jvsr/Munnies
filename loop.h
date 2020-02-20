@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   loop.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/20 20:49:05 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/20 22:59:06 by jvisser       ########   odam.nl         */
+/*   Created: 2020/02/20 22:58:26 by jvisser        #+#    #+#                */
+/*   Updated: 2020/02/20 22:59:00 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ncurses.h>
+#ifndef LOOP_H
+# define LOOP_H
 
-#include "init.h"
-#include "loop.h"
+void	loop();
 
-int		main(void)
-{
-	init();
-	loop();
-	endwin();
-    return (0);
-}
+#endif

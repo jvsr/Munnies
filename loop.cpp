@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   loop.cpp                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/20 20:49:05 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/20 22:59:06 by jvisser       ########   odam.nl         */
+/*   Created: 2020/02/20 22:29:38 by jvisser        #+#    #+#                */
+/*   Updated: 2020/02/20 23:48:55 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 
-#include "init.h"
 #include "loop.h"
 
-int		main(void)
+enum	state
 {
-	init();
-	loop();
-	endwin();
-    return (0);
+	mainMenu,
+	stopped
+};
+
+void	loop()
+{
+	enum state	curState = mainMenu;
+
+	while (curState != stopped)
+	{
+		refresh();
+	}
 }
