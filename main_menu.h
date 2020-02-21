@@ -90,8 +90,12 @@ void	MainMenu::CenterWindow()
 
 void	MainMenu::SetTitle()
 {
+	const int dimX = dim.GetX();
+	const int s =  dimX / 2 - strlen(TITLE) / 2;
+	const int start = s > 1 ? s : 1;
+
 	wattron(menu, A_BOLD | A_UNDERLINE);
-	mvwprintw(menu, 1, dim.GetX() / 2 - strlen(TITLE) / 2, TITLE);
+	mvwprintw(menu, 1, start, "%.*s", dimX - 2, TITLE);
 	wattroff(menu, A_BOLD | A_UNDERLINE);
 }
 void	MainMenu::SetOptions()
