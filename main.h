@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.cpp                                           :+:    :+:            */
+/*   main.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/20 20:49:05 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 19:18:46 by jvisser       ########   odam.nl         */
+/*   Created: 2020/02/21 17:18:53 by jvisser        #+#    #+#                */
+/*   Updated: 2020/02/21 19:26:35 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ncurses.h>
+#ifndef MAIN_H
+# define MAIN_H
 
-#include "main.h"
-#include "init.h"
-#include "loop.h"
-
-int		main()
+enum state
 {
-	Program program;
+	mainMenu,
+	stopped
+};
 
-	init();
-	loop(&program);
-	endwin();
-    return (0);
-}
+class Program
+{
+private:
+    enum state curState;
+public:
+    enum state getState() {return curState;}
+    void setState(const enum state newState) {curState = newState;};
+    Program() : curState(mainMenu) {};
+};
+
+#endif

@@ -6,35 +6,28 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:38 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/20 23:48:55 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 19:24:19 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 
+#include "main.h"
 #include "loop.h"
 
-enum	state
-{
-	mainMenu,
-	stopped
-};
+enum state mainMenuState();
 
-void    mainMenuState();
-
-typedef void(*stateFunction)(void);
+typedef enum state(*stateFunction)();
 
 stateFunction	stateFunctions[] = {
 	mainMenuState,
 };
 
-void	loop()
+void	loop(Program *const program)
 {
-	enum state	curState = mainMenu;
-
-	while (curState != stopped)
+	while (program->getState() != stopped)
 	{
-		stateFunctions[curState]();
+		stateFunctions[program->getState()]();
 		refresh();
 	}
 }
