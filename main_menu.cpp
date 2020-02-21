@@ -19,7 +19,6 @@ static void handleKey(MainMenu mainMenu, int c)
     if (c >= '1' && c <= '0' + N_OPTIONS)
         mainMenu.SetOption(c - '0');
     else if (c == KEY_RESIZE) {
-        mainMenu.SetWindowPos();
         mainMenu.DrawMenu();
     } // TODO Proper handling of LINES and COLS on resize
 }
