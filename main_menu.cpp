@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 19:26:10 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 20:36:09 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 const char	optionList[TOTAL_OPTIONS][MENU_X - 1] = {
 	"-> 1. Foo                             ",
 	"-> 2. Bar                             ",
-	"-> 3. Oof                             "
+	"-> 3. Oof                             ",
+	"-> 4. Rab                             ",
+	"-> 5. Foobar                          "
 };
 
 void	MainMenu::SetWindowPos()

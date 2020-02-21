@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 19:26:21 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 19:49:39 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <ncurses.h>
 
 # define TITLE "Munnies"
-# define TOTAL_OPTIONS 3
+# define TOTAL_OPTIONS 5
 # define MENU_X 40
 # define MENU_Y TOTAL_OPTIONS + 3
 
