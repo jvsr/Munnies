@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 18:03:47 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 19:26:10 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	MainMenu::DecOption()
 {
 	SetOption(option);
 }
-void	MainMenu::SetOption(int n)
+void	MainMenu::SetOption(const int n)
 {
 	if (n >= 1 && n <= TOTAL_OPTIONS) {
 		option = n - 1;
@@ -140,7 +140,7 @@ MainMenu::MainMenu()
 	DrawMenu();
 }
 
-static void handleKey(MainMenu *mainMenu, int c)
+static void handleKey(MainMenu *const mainMenu, const int c)
 {
     if (c >= '1' && c <= '0' + TOTAL_OPTIONS) {
         mainMenu->SetOption(c - '0');
@@ -154,7 +154,7 @@ static void handleKey(MainMenu *mainMenu, int c)
    	mainMenu->DrawMenu();
 }
 
-enum state  mainMenuState(void)
+enum state  mainMenuState()
 {
     int c;
     MainMenu mainMenu;

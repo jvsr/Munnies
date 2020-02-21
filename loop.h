@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:58:26 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 17:34:24 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 19:25:44 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 class Program;
 
-void	loop(Program *program);
+void	loop(Program *const program);
 
 #endif

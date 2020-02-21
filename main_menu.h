@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 18:03:10 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 19:26:21 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ public:
 	WINDOW  *menu;
 	void    IncOption();
 	void    DecOption();
-	void    SetOption(int n);
+	void    SetOption(const int n);
 	void    DrawMenu();
 	MainMenu();
 };

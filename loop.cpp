@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:38 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 17:56:48 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 19:24:19 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ stateFunction	stateFunctions[] = {
 	mainMenuState,
 };
 
-void	loop(Program *program)
+void	loop(Program *const program)
 {
 	while (program->getState() != stopped)
 	{
