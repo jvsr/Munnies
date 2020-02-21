@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 00:06:45 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 12:34:19 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 
 static void handleKey(MainMenu mainMenu, int c)
 {
-    if (c >= '1' && c <= '0' + N_OPTIONS)
+    if (c >= '1' && c <= '0' + N_OPTIONS) {
         mainMenu.SetOption(c - '0');
-    else if (c == KEY_RESIZE) {
+    } else if (c == KEY_RESIZE) {
+        resizeterm(getmaxy(stdscr), getmaxx(stdscr));
         mainMenu.DrawMenu();
-    } // TODO Proper handling of LINES and COLS on resize
+    }
 }
 
 void	mainMenuState(void)
