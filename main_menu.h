@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 14:04:46 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 15:41:48 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@
 
 # define TITLE "Munnies"
 # define MENU_X 40
-# define MENU_Y 8
-# define N_OPTIONS 2
+# define TOTAL_OPTIONS 3
+# define MENU_Y TOTAL_OPTIONS + 3
 
-const char	optionList[N_OPTIONS][MENU_X - 1] = {
+const char	optionList[TOTAL_OPTIONS][MENU_X - 1] = {
 	"-> 1. Foo                             ",
-	"-> 2. Bar                             "
+	"-> 2. Bar                             ",
+	"-> 3. Oof                             "
 };
 
 class	MainMenu
 {
 private:
+	int	option;
 	Point pos, dim;
 	void    SetWindowPos();
 	void    SetWindowDim();
@@ -38,10 +40,13 @@ private:
 	void    ResizeWindow();
 	void    MoveWindow();
 	void	CenterWindow();
+	void    SetTitle();
+	void    SetOptions();
 	void    SetMenuInfo();
-	int	option;
 public:
 	WINDOW  *menu;
+	void    IncOption();
+	void    DecOption();
 	void    SetOption(int n);
 	void    DrawMenu();
 	MainMenu();
@@ -83,25 +88,63 @@ void	MainMenu::CenterWindow()
 	MoveWindow();
 }
 
-void	MainMenu::SetMenuInfo()
+void	MainMenu::SetTitle()
 {
 	wattron(menu, A_BOLD | A_UNDERLINE);
 	mvwprintw(menu, 1, dim.GetX() / 2 - strlen(TITLE) / 2, TITLE);
 	wattroff(menu, A_BOLD | A_UNDERLINE);
-	for (int i = 0; i < N_OPTIONS; i++) {
+}
+void	MainMenu::SetOptions()
+{
+	int nOptions = 0;
+	bool printMore = false;
+	const int dimY = dim.GetY();
+	const int dimX = dim.GetX();
+
+	// Calculate total options to be printed
+	if (dimY - 3 < TOTAL_OPTIONS) {
+		nOptions = dimY - 4;
+		printMore = true;
+	} else {
+		nOptions = TOTAL_OPTIONS;
+	}
+	// Print options and highlight selected option
+	for (int i = 0; i < nOptions; i++) {
 		if (i == option)
 			wattron(menu, A_STANDOUT);
 		else
 			wattroff(menu, A_STANDOUT);
-		mvwprintw(menu, i + 2, 1, optionList[i]);
+		mvwprintw(menu, i + 2, 1, "%.*s", dimX - 2, optionList[i]);
 	}
 	wattroff(menu, A_STANDOUT);
+	if (printMore == true)
+		mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, "-> ...");
+}
+void	MainMenu::SetMenuInfo()
+{
+	const int dimY = dim.GetY();
+
+	if (dimY > 2) {
+		SetTitle();
+		if (dimY > 3) {
+			SetOptions();
+		}
+	}
 }
 
+void	MainMenu::IncOption()
+{
+	SetOption(option + 2);
+}
+void	MainMenu::DecOption()
+{
+	SetOption(option);
+}
 void	MainMenu::SetOption(int n)
 {
-	option = n - 1;
-	SetMenuInfo();
+	if (n >= 1 && n <= TOTAL_OPTIONS) {
+		option = n - 1;
+	}
 }
 
 void	MainMenu::DrawMenu()
