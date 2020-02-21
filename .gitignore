@@ -27,6 +27,7 @@
 *.lib
 
 # Executables
+Munnies
 *.exe
 *.out
 *.app
