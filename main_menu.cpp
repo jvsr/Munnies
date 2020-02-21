@@ -95,8 +95,16 @@ void	MainMenu::SetOptions()
 		mvwprintw(menu, i + 2, 1, "%.*s", dimX - 2, optionList[i]);
 	}
 	wattroff(menu, A_STANDOUT);
-	if (printMore == true)
-		mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, "-> ...");
+	// Print 'more' symbol or selected option if not all options fit in box
+	if (printMore == true) {
+		if (option < nOptions) {
+			mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, "-> ...");
+		} else {
+			wattron(menu, A_STANDOUT);
+			mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, optionList[option]);			
+			wattroff(menu, A_STANDOUT);
+		}
+	}
 }
 void	MainMenu::SetMenuInfo()
 {
