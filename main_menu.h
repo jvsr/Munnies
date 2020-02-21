@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 15:41:48 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/02/21 16:32:31 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <cstring>
 # include <ncurses.h>
 
-# include "point.h"
+# include "common/point.h"
 
 # define TITLE "Munnies"
 # define MENU_X 40

@@ -6,7 +6,7 @@
 #    By: jvisser <jvisser@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/20 20:45:02 by jvisser        #+#    #+#                 #
-#    Updated: 2020/02/20 23:52:52 by jvisser       ########   odam.nl          #
+#    Updated: 2020/02/21 16:32:20 by jvisser       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CPP_FILES = main.cpp \
 O_FILES = $(CPP_FILES:%.cpp=%.o)
 HEADER = init.h \
 		loop.h \
-		main_menu.h
+		main_menu.h \
+		common/point.h
 CFLAGS = -Wall -Wextra -Werror -Wpedantic
 CC = g++
 SILENCE = &> /dev/null
