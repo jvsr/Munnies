@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:38 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 19:24:19 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/02 17:45:04 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,16 @@ stateFunction	stateFunctions[] = {
 
 void	loop(Program *const program)
 {
+	enum state	nextState;
+
 	while (program->getState() != stopped)
 	{
-		stateFunctions[program->getState()]();
+		nextState = stateFunctions[program->getState()]();
+		if (nextState == back) {
+			program->delState();
+		} else {
+			program->setState(nextState);
+		}
 		refresh();
 	}
 }
