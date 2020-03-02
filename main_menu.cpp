@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 20:36:09 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/02 17:55:11 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,19 @@
 #include "main_menu.h"
 
 const char	optionList[TOTAL_OPTIONS][MENU_X - 1] = {
-	"-> 1. Foo                             ",
-	"-> 2. Bar                             ",
-	"-> 3. Oof                             ",
-	"-> 4. Rab                             ",
-	"-> 5. Foobar                          "
+	"-> 1. Exit                            ",
+	"-> 2. Exit                            ",
+	"-> 3. Exit                            ",
+	"-> 4. Exit                            ",
+	"-> 5. Exit                            "
+};
+
+const enum state	stateList[TOTAL_OPTIONS] = {
+	back,
+	back,
+	back,
+	back,
+	back
 };
 
 void	MainMenu::SetWindowPos()
@@ -133,6 +141,11 @@ void	MainMenu::SetOption(const int n)
 	}
 }
 
+enum state	MainMenu::GetState()
+{
+	return (stateList[option]);
+}
+
 void	MainMenu::DrawMenu()
 {
 	clear();
@@ -150,21 +163,21 @@ MainMenu::MainMenu()
 	DrawMenu();
 }
 
-static void handleKey(MainMenu *const mainMenu, const int c)
+static void	handleKey(MainMenu *const mainMenu, const int c)
 {
-    if (c >= '1' && c <= '0' + TOTAL_OPTIONS) {
-        mainMenu->SetOption(c - '0');
-    } else if (c == KEY_UP) {
-        mainMenu->DecOption();
-    } else if (c == KEY_DOWN) {
-        mainMenu->IncOption();
-    } else if (c == KEY_RESIZE) {
-        resizeterm(getmaxy(stdscr), getmaxx(stdscr));
-    }
-   	mainMenu->DrawMenu();
+	if (c >= '1' && c <= '0' + TOTAL_OPTIONS) {
+		mainMenu->SetOption(c - '0');
+	} else if (c == KEY_UP) {
+		mainMenu->DecOption();
+	} else if (c == KEY_DOWN) {
+		mainMenu->IncOption();
+	} else if (c == KEY_RESIZE) {
+		resizeterm(getmaxy(stdscr), getmaxx(stdscr));
+	}
+	mainMenu->DrawMenu();
 }
 
-enum state  mainMenuState()
+enum state	mainMenuState()
 {
     int c;
     MainMenu mainMenu;
@@ -173,7 +186,11 @@ enum state  mainMenuState()
     	refresh();
 	    wrefresh(mainMenu.menu);
         c = getch();
-        handleKey(&mainMenu, c);
+		if (c == '\n') {
+			return (mainMenu.GetState());
+		} else {
+			handleKey(&mainMenu, c);
+		}
     }
     return (stopped);
 }

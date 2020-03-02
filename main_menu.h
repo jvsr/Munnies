@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 19:49:39 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/02 17:08:51 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ public:
 	void    DecOption();
 	void    SetOption(const int n);
 	void    DrawMenu();
+	enum state	GetState();
 	MainMenu();
 };
 
