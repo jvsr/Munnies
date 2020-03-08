@@ -6,24 +6,31 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 11:44:40 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 12:07:36 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 17:13:03 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POINT_H
-# define POINT_H
+#ifndef COMMON_POINT_H_
+# define COMMON_POINT_H_
 
-class Point
-{
-private:
-	int x, y;
-public:
-	int GetX() {return x;}
-	int GetY() {return y;}
-	void SetX(int a) {x = a;}
-	void SetY(int b) {y = b;}
-	Point() : x(0), y(0) {};
-	Point(int a, int b) : x(a), y(b) {};
+// Class to represent a point.
+class Point {
+ public:
+  // Extractors.
+  int GetX() {return x;}
+  int GetY() {return y;}
+
+  // Assigners.
+  void SetX(int xval) {x = xval;}
+  void SetY(int yval) {y = yval;}
+
+  // Constructor uses default values to support no, one or two arguments given.
+  Point(int xval = 0, int yval = 0) {
+    x = xval;
+    y = yval;
+  };
+ private:
+  int x, y;
 };
 
 #endif

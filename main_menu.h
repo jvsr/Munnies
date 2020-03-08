@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/02 17:08:51 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 15:34:59 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Point;
 class	MainMenu
 {
 private:
+	// Option is represented as index.
 	int	option;
 	Point pos, dim;
 	void    SetWindowPos();
