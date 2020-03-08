@@ -6,15 +6,17 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:58:26 by jvisser        #+#    #+#                */
-/*   Updated: 2020/02/21 19:25:44 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 17:48:19 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LOOP_H
 # define LOOP_H
 
+// Forward declarations.
 class Program;
 
-void	loop(Program *const program);
+// Main loop of the program.
+void loop(Program *const program);
 
 #endif
