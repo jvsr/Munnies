@@ -6,15 +6,14 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 17:43:23 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 19:51:45 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_MENU_H
 # define MAIN_MENU_H
 
-# include <ncurses.h>
-
+# include "common/menu.h"
 # include "common/point.h"
 
 # include "main.h"
@@ -25,11 +24,8 @@
 # define MENU_Y TOTAL_OPTIONS + 3
 
 // Class to represent the main menu.
-class MainMenu {
+class MainMenu: public Menu {
  public:
-  // Window pointer.
-  WINDOW *menu;
-
   // Extractors
   enum state GetState();
 
@@ -46,9 +42,10 @@ class MainMenu {
  private:
 	// Option is represented as index.
 	int	option;
+
   // Point classes to hold position and dimension of window.
 	Point pos, dim;
-
+ 
   // Window handlers.
   void SetWindowPos();
   void SetWindowDim();
