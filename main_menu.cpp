@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 17:23:58 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 17:54:34 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ static void handleKey(MainMenu *const mainMenu, const int c) {
 }
 
 // Initializes and handles the main menu.
-enum state	mainMenuState()
+enum state mainMenuState()
 {
   int c;
   MainMenu mainMenu;
