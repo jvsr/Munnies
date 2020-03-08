@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:55:18 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 14:55:59 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 17:38:11 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include <iostream>
 
+// Initializes color from cursus library.
 static void initColor() {
 	start_color();
 
@@ -31,6 +32,7 @@ static void initColor() {
 	init_pair(2, COLOR_BLUE, COLOR_BLACK);
 }
 
+// Initializes the program.
 void init()
 {
   initscr();
