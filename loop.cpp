@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:38 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 15:00:34 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 19:33:20 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 // State function prototypes.
 enum state mainMenuState();
+enum state newRegisterState();
 
 // Function table that corresponds with the enum state
 // that is declared in main.h
 typedef enum state(*stateFunction)();
 stateFunction	stateFunctions[] = {
   mainMenuState,
+  newRegisterState,
 };
 
 // Main loop of the program.
@@ -43,6 +45,7 @@ void loop(Program *const program) {
       program->setState(nextState);
     }
 
+    clear();
     refresh();
   }
 }

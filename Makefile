@@ -6,7 +6,7 @@
 #    By: jvisser <jvisser@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/20 20:45:02 by jvisser        #+#    #+#                 #
-#    Updated: 2020/02/21 16:32:20 by jvisser       ########   odam.nl          #
+#    Updated: 2020/03/08 19:32:23 by jvisser       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,14 @@ NAME = Munnies
 CPP_FILES = main.cpp \
 			init.cpp \
 			loop.cpp \
-			main_menu.cpp
+			main_menu.cpp \
+			new_register.cpp
 O_FILES = $(CPP_FILES:%.cpp=%.o)
-HEADER = init.h \
+HEADER = main.h \
+		init.h \
 		loop.h \
 		main_menu.h \
+		new_register.h \
 		common/point.h
 CFLAGS = -Wall -Wextra -Werror -Wpedantic
 CC = g++

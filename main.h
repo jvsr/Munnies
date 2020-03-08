@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 17:18:53 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 17:55:56 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 19:26:44 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 // Correspond with the function table, declared in loop.cpp.
 enum state {
   mainMenu,
+  newRegister,
   back,
   stopped
 };

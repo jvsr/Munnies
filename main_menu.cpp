@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 17:54:34 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 19:26:29 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 // List of options presented in the main menu.
 const char optionList[TOTAL_OPTIONS][MENU_X - 1] = {
-  "-> 1. Exit                            ",
+  "-> 1. Create a new register.          ",
   "-> 2. Exit                            ",
   "-> 3. Exit                            ",
   "-> 4. Exit                            ",
@@ -31,7 +31,7 @@ const char optionList[TOTAL_OPTIONS][MENU_X - 1] = {
 
 // Corresponding return values for all presented options.
 const enum state stateList[TOTAL_OPTIONS] = {
-  back,
+  newRegister,
   back,
   back,
   back,
