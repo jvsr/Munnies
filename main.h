@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 17:18:53 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 17:47:27 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/08 17:55:56 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ enum state {
   stopped
 };
 
+// Class to represent the program and hold the state stack.
 class Program {
  public:
   // Extractors.
