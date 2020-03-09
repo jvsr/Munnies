@@ -1,0 +1,3 @@
+// TODO Rework main menu so that is is compatible with ncurses menu
+// TODO Internal and external representation of pos and dim
+// TODO Handle all window resizing in menu class
