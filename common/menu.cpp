@@ -14,7 +14,19 @@
 
 #include <ncurses.h>
 
+// Increases the currently selected option.
+void Menu::IncOption() {
+  SetOption(option + 1);
+}
+
+// Decreases the currently selected option.
+void Menu::DecOption() {
+  SetOption(option - 1);
+}
+
 // Constructor will initialize a new window pointer.
 Menu::Menu() {
+  curs_set(0);  // Hide cursor
+  option = 0;
   menu = newwin(0, 0, 0, 0);
 }

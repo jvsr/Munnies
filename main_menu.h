@@ -14,7 +14,6 @@
 # define MAIN_MENU_H
 
 # include "common/menu.h"
-# include "common/point.h"
 
 # include "main.h"
 
@@ -29,23 +28,12 @@ class MainMenu: public Menu {
   // Extractors
   enum state GetState();
 
-  // Option managers.
-  void IncOption();
-  void DecOption();
-  void SetOption(const int n);
-
   // Drawing.
   void DrawMenu();
 
   // Constructor.
   MainMenu();
  private:
-	// Option is represented as index.
-	int	option;
-
-  // Point classes to hold position and dimension of window.
-	Point pos, dim;
- 
   // Window handlers.
   void SetWindowPos();
   void SetWindowDim();
