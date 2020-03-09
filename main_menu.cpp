@@ -66,12 +66,12 @@ void MainMenu::SetWindowPosDim() {
 
 // Resizes the window with the current window dimensions.
 void MainMenu::ResizeWindow() {
-  wresize(menu, dim.GetY(), dim.GetX());
+  wresize(GetMenu(), dim.GetY(), dim.GetX());
 }
 
 // Moves the window to the current window position.
 void MainMenu::MoveWindow() {
-  mvwin(menu, pos.GetY(), pos.GetX());
+  mvwin(GetMenu(), pos.GetY(), pos.GetX());
 }
 
 // Changes position and dimension of the window, resizes and moves the window.
@@ -83,6 +83,7 @@ void MainMenu::CenterWindow() {
 
 // Prints the title in the current menu box.
 void MainMenu::SetTitle() {
+  WINDOW *const menu = GetMenu();
   const int dimX = dim.GetX();
   // Attempted starting index for writing.
   const int s = dimX / 2 - strlen(TITLE) / 2;
@@ -99,6 +100,7 @@ void MainMenu::SetTitle() {
 void MainMenu::SetOptions() {
   int totalOptions = 0;
   bool printMore = false;
+  WINDOW *const menu = GetMenu();
   const int dimY = dim.GetY();
   const int dimX = dim.GetX();
 
@@ -171,6 +173,8 @@ enum state MainMenu::GetState() {
 
 // Fully resets, recenters, refils and redraws the menu window.
 void MainMenu::DrawMenu() {
+  WINDOW *const menu = GetMenu();
+
   clear();
   wclear(menu);
   CenterWindow();
@@ -183,7 +187,6 @@ void MainMenu::DrawMenu() {
 MainMenu::MainMenu() {
   curs_set(0);  // Hide cursor
   option = 0;
-  menu = newwin(0, 0, 0, 0);
   DrawMenu();
 }
 
@@ -211,7 +214,7 @@ enum state mainMenuState()
   while (true) {
     // Clears screen
     refresh();
-    wrefresh(mainMenu.menu);
+    wrefresh(mainMenu.GetMenu());
 
     // Wait for the next key input.
     // Returns the corresponding state on selection of the option.

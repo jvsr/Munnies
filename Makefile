@@ -14,12 +14,14 @@ NAME = Munnies
 CPP_FILES = main.cpp \
 			init.cpp \
 			loop.cpp \
-			main_menu.cpp
+			main_menu.cpp \
+			common/menu.cpp
 O_FILES = $(CPP_FILES:%.cpp=%.o)
 HEADER = init.h \
 		loop.h \
 		main_menu.h \
-		common/point.h
+		common/point.h \
+		common/menu.h
 CFLAGS = -Wall -Wextra -Werror -Wpedantic
 CC = g++
 SILENCE = &> /dev/null
