@@ -6,7 +6,7 @@
 #    By: jvisser <jvisser@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/20 20:45:02 by jvisser        #+#    #+#                 #
-#    Updated: 2020/02/21 16:32:20 by jvisser       ########   odam.nl          #
+#    Updated: 2020/03/11 17:00:14 by jvisser       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,17 +15,17 @@ CPP_FILES = main.cpp \
 			init.cpp \
 			loop.cpp \
 			main_menu.cpp \
-			common/menu.cpp
+			common/curses_menu.cpp
 O_FILES = $(CPP_FILES:%.cpp=%.o)
 HEADER = init.h \
 		loop.h \
 		main_menu.h \
 		common/point.h \
-		common/menu.h
+		common/curses_menu.h
 CFLAGS = -Wall -Wextra -Werror -Wpedantic
 CC = g++
 SILENCE = &> /dev/null
-LIB_DEP= -lncurses
+LIB_DEP= -L$(HOME)/.brew/opt/ncurses/lib -lmenu -lncurses
 
 ANSI_BOLD_RED=\033[1;31m
 ANSI_BOLD_GREEN=\033[1;32m

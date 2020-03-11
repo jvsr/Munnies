@@ -6,14 +6,14 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:51:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 19:51:45 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/11 16:00:31 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_MENU_H
 # define MAIN_MENU_H
 
-# include "common/menu.h"
+# include "common/curses_menu.h"
 
 # include "main.h"
 
@@ -23,27 +23,19 @@
 # define MENU_Y TOTAL_OPTIONS + 3
 
 // Class to represent the main menu.
-class MainMenu: public Menu {
+class MainMenu: public CursesMenu {
  public:
   // Extractors
   enum state GetState();
 
-  // Drawing.
-  void DrawMenu();
-
+  // Window handlers.
+  void SetMenuInfo();
   // Constructor.
   MainMenu();
  private:
   // Window handlers.
-  void SetWindowPos();
-  void SetWindowDim();
-  void SetWindowPosDim();
-  void ResizeWindow();
-  void MoveWindow();
-  void CenterWindow();
   void SetTitle();
   void SetOptions();
-  void SetMenuInfo();
 };
 
 #endif

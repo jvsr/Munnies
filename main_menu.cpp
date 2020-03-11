@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/08 17:54:34 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/11 19:20:59 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 #include <ncurses.h>
 
+#include <vector>
+#include <utility>
 #include <cstring>
 
 #include "common/point.h"
+#include "common/curses_menu.h"
 
 #include "main.h"
 
 // List of options presented in the main menu.
-const char optionList[TOTAL_OPTIONS][MENU_X - 1] = {
-  "-> 1. Exit                            ",
-  "-> 2. Exit                            ",
-  "-> 3. Exit                            ",
-  "-> 4. Exit                            ",
-  "-> 5. Exit                            "
+const std::pair<const char*, const char*>optionList[] = {
+  std::make_pair("1. ", "Exit"),
+  std::make_pair("2. ", "Exit"),
+  std::make_pair("3. ", "Exit"),
+  std::make_pair("4. ", "Exit"),
+  std::make_pair("5. ", "Exit")
 };
 
 // Corresponding return values for all presented options.
@@ -38,52 +41,9 @@ const enum state stateList[TOTAL_OPTIONS] = {
   back
 };
 
-// Centers the window position on the stdscr.
-// If the window would be OOB, places window in the topleft corner instead.
-void MainMenu::SetWindowPos() {
-	const int stdscrX = getmaxx(stdscr) / 2 - MENU_X / 2;
-	const int stdscrY = getmaxy(stdscr) / 2 - MENU_Y / 2;
-
-	SetPosX(stdscrX < 0 ? 0 : stdscrX);
-	SetPosY(stdscrY < 0 ? 0 : stdscrY);
-}
-
-// Sets the window dimensions specified in defined MENU_ X and Y.
-// If the stdscr is smaller than said defines, takes on the size of stdscr.
-void MainMenu::SetWindowDim() {
-	const int stdscrX = getmaxx(stdscr);
-	const int stdscrY = getmaxy(stdscr);
-	
-	SetDimX(MENU_X < stdscrX ? MENU_X : stdscrX);
-	SetDimY(MENU_Y < stdscrY ? MENU_Y : stdscrY);
-}
-
-// Sets both window position and dimensions.
-void MainMenu::SetWindowPosDim() {
-  SetWindowDim();
-  SetWindowPos();
-}
-
-// Resizes the window with the current window dimensions.
-void MainMenu::ResizeWindow() {
-  wresize(GetMenu(), GetDimY(), GetDimX());
-}
-
-// Moves the window to the current window position.
-void MainMenu::MoveWindow() {
-  mvwin(GetMenu(), GetPosY(), GetPosX());
-}
-
-// Changes position and dimension of the window, resizes and moves the window.
-void MainMenu::CenterWindow() {
-  SetWindowPosDim();
-  ResizeWindow();
-  MoveWindow();
-}
-
 // Prints the title in the current menu box.
 void MainMenu::SetTitle() {
-  WINDOW *const menu = GetMenu();
+  WINDOW *const menu = GetMenuWin();
   const int dimX = GetDimX();
   // Attempted starting index for writing.
   const int s = dimX / 2 - strlen(TITLE) / 2;
@@ -100,9 +60,9 @@ void MainMenu::SetTitle() {
 void MainMenu::SetOptions() {
   int totalOptions = 0;
   bool printMore = false;
-  WINDOW *const menu = GetMenu();
-  const int dimY = GetDimY();
-  const int dimX = GetDimX();
+  WINDOW *const menu = GetMenuWin();
+  const int dimY = GetIDimY();
+  const int dimX = GetIDimX();
   const int option = GetOption();
 
 	// Calculate total options to be printed.
@@ -121,7 +81,7 @@ void MainMenu::SetOptions() {
 			wattron(menu, A_STANDOUT);
 		else
 			wattroff(menu, A_STANDOUT);
-		mvwprintw(menu, i + 2, 1, "%.*s", dimX - 2, optionList[i]);
+		mvwprintw(menu, i + 2, 1, "%.*s", dimX - 2, optionList[i].second);
 	}
 	wattroff(menu, A_STANDOUT);
 
@@ -132,7 +92,7 @@ void MainMenu::SetOptions() {
 			mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, "-> ...");
 		} else {
 			wattron(menu, A_STANDOUT);
-			mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, optionList[option]);			
+			mvwprintw(menu, dimY - 2, 1, "%.*s", dimX - 2, optionList[option].second);			
 			wattroff(menu, A_STANDOUT);
 		}
 	}
@@ -140,7 +100,7 @@ void MainMenu::SetOptions() {
 
 // Fills the menu box with title and option list if there is space available.
 void MainMenu::SetMenuInfo() {
-  const int dimY = GetDimY();
+  const int dimY = GetIDimY();
 
   if (dimY > 2) {
     SetTitle();
@@ -155,25 +115,13 @@ enum state MainMenu::GetState() {
   return (stateList[GetOption()]);
 }
 
-// Fully resets, recenters, refils and redraws the menu window.
-void MainMenu::DrawMenu() {
-  WINDOW *const menu = GetMenu();
-
-  clear();
-  wclear(menu);
-  CenterWindow();
-  // Creates a box around the edges of the menu window.
-  box(menu, 0, 0);
-  SetMenuInfo();
-}
-
 // Constructor hides cursor, creates window and draws the menu.
 MainMenu::MainMenu() {
-  DrawMenu();
+  // DrawMenu();
 }
 
 // Executes function based on what key was pressed.
-static void handleKey(MainMenu *const mainMenu, const int c) {
+static void handleKey(CursesMenu *const mainMenu, const int c) {
   // Option management is done with number and arrow keys.
   if (c >= '1' && c <= '0' + TOTAL_OPTIONS) {
     mainMenu->SetOption(c - '0' - 1);
@@ -185,28 +133,34 @@ static void handleKey(MainMenu *const mainMenu, const int c) {
       mainMenu->IncOption();
   } else if (c == KEY_RESIZE) {
     resizeterm(getmaxy(stdscr), getmaxx(stdscr));
+    mainMenu->DrawMenu();
   }
-  mainMenu->DrawMenu();
-}
+} // TODO Add back in
 
 // Initializes and handles the main menu.
 enum state mainMenuState()
 {
   int c;
-  MainMenu mainMenu;
+  CursesMenu main_menu(TOTAL_OPTIONS, optionList);
+  // MainMenu mainMenu;
 
+  main_menu.SetCentered(true);
+  main_menu.SetDimXY(MENU_X, MENU_Y);
+  main_menu.DrawMenu();
   while (true) {
-    // Clears screen
+    //// Draws outline of menu on screen and fills menu info.
+    //// mainMenu.SetMenuInfo();
+    // Refreshes main and current screen.
     refresh();
-    wrefresh(mainMenu.GetMenu());
+    wrefresh(main_menu.GetMenuWin());
 
     // Wait for the next key input.
     // Returns the corresponding state on selection of the option.
     c = getch();
     if (c == '\n') {  // Enter.
-      return (mainMenu.GetState());
+      return (back); // TODO Change
     } else {
-      handleKey(&mainMenu, c);
+      handleKey(&main_menu, c);
 		}
   }
   return (stopped);
