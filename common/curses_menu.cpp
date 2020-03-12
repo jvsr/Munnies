@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 13:57:09 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/11 19:19:29 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/12 19:11:59 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ void CursesMenu::MoveWindow() {
   mvwin(GetMenuWin(), GetIPosY(), GetIPosX());
 }
 
-// Clears, repositions, resizes and redraws the window
+// Clears, repositions, resizes, redraws and posts the window
 void CursesMenu::DrawMenu() {
-  clear();
-  wclear(menuWin);
+  // werase(menuWin);
   if (cntrd == true) {
     CenterWindow();
   } else {
@@ -86,10 +85,35 @@ void CursesMenu::DrawMenu() {
   MoveWindow();
   // Creates a box around the edges of the menu window.
   box(menuWin, 0, 0);
+  // Sets the menu window and subwindow to the earlier created window.
+  set_menu_win(menu, menuWin);
+  set_menu_sub(menu, derwin(menuWin, 6, 38, 1, 1));
+  post_menu(menu);
 } // TODO don't redraw on every refresh
 
-// Constructor will initialize a new window pointer.
-CursesMenu::CursesMenu(const int nItems, const std::pair<const char*, const char*>optionList[]) {
+// Creates menu items and its pointer.
+void CursesMenu::CreateMenu() {
+  menu = new_menu(items);
+}
+
+// Destroys menu and its items.
+void CursesMenu::DestroyMenu() {
+  unpost_menu(menu);
+  free_menu(menu);
+  for (int i = 0; i < nItems; i++) {
+    free_item(items[i]);
+  }
+}
+
+// Unposts menu and redraws.
+void CursesMenu::RedrawMenu() {
+  clear();
+  unpost_menu(menu);
+  DrawMenu();
+}
+
+// Constructor will initialize a new menu window and items.
+CursesMenu::CursesMenu(const int nOptions, const std::pair<const char*, const char*>optionList[]) {
   curs_set(0);  // Hide cursor.
   option = 0;
   menuWin = newwin(0, 0, 0, 0);
@@ -98,6 +122,7 @@ CursesMenu::CursesMenu(const int nItems, const std::pair<const char*, const char
   cntrd = false;
 
   // Allocates and initializes items.
+  nItems = nOptions;
   items = (ITEM**)calloc(nItems + 1, sizeof(ITEM*));
   for (int i = 0; i < nItems; i++) {
     items[i] = new_item(optionList[i].first, optionList[i].second);
@@ -106,11 +131,8 @@ CursesMenu::CursesMenu(const int nItems, const std::pair<const char*, const char
 
   // Creates new curses menu from items.
   menu = new_menu(items);
+  // Removes prefix from items.
   set_menu_mark(menu, "");
-
-  set_menu_win(menu, menuWin);
-  set_menu_sub(menu, menuWin);
-  post_menu(menu);
 }
 // TODO Add option for title.
 // TODO Add sizing of submenu.

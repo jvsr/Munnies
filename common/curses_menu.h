@@ -6,20 +6,20 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/08 19:41:36 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/11 18:45:07 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/12 18:44:59 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_CURSES_MENU_H_
 # define COMMON_CURSES_MENU_H_
 
-# include "point.h"
-
 # include <menu.h>
 # include <ncurses.h>
 
 # include <vector>
 # include <utility>
+
+# include "point.h"
 
 // Class to represent a menu.
 class CursesMenu {
@@ -54,13 +54,16 @@ class CursesMenu {
 
   // Window managers.
   void DrawMenu();
+  void CreateMenu();
+  void RedrawMenu();
+  void DestroyMenu();
 
   // Option managers.
   void IncOption();
   void DecOption();
 
   // Constructor will initialize a new window pointer.
-  CursesMenu(const int nItems = 0, const std::pair<const char*, const char*>optionList[] = NULL);
+  CursesMenu(const int nOptions = 0, const std::pair<const char*, const char*>optionList[] = NULL);
  private:
   // Window pointer.
   WINDOW *menuWin;
@@ -69,6 +72,7 @@ class CursesMenu {
   // Menu pointer.
   MENU *menu;
   // Menu Items.
+  int nItems;
   ITEM **items;
   // Point classes to hold position and dimension of window.
   // Ipos and idim represent internal interpresentations of attemted values.

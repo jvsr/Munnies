@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/20 22:29:00 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/11 19:20:59 by jvisser       ########   odam.nl         */
+/*   Created: 2020/03/12 18:33:11 by jvisser        #+#    #+#                */
+/*   Updated: 2020/03/12 19:10:17 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ MainMenu::MainMenu() {
 }
 
 // Executes function based on what key was pressed.
-static void handleKey(CursesMenu *const mainMenu, const int c) {
+static void HandleKey(CursesMenu *const mainMenu, const int c) {
   // Option management is done with number and arrow keys.
   if (c >= '1' && c <= '0' + TOTAL_OPTIONS) {
     mainMenu->SetOption(c - '0' - 1);
@@ -133,7 +133,7 @@ static void handleKey(CursesMenu *const mainMenu, const int c) {
       mainMenu->IncOption();
   } else if (c == KEY_RESIZE) {
     resizeterm(getmaxy(stdscr), getmaxx(stdscr));
-    mainMenu->DrawMenu();
+    mainMenu->RedrawMenu();
   }
 } // TODO Add back in
 
@@ -156,11 +156,11 @@ enum state mainMenuState()
 
     // Wait for the next key input.
     // Returns the corresponding state on selection of the option.
-    c = getch();
+    c = wgetch(main_menu.GetMenuWin());
     if (c == '\n') {  // Enter.
       return (back); // TODO Change
     } else {
-      handleKey(&main_menu, c);
+      HandleKey(&main_menu, c);
 		}
   }
   return (stopped);
