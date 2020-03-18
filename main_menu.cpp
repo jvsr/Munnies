@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/12 18:33:11 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/12 19:10:17 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/17 18:29:34 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ static void HandleKey(CursesMenu *const mainMenu, const int c) {
     if (mainMenu->GetOption() < TOTAL_OPTIONS - 1)
       mainMenu->IncOption();
   } else if (c == KEY_RESIZE) {
-    resizeterm(getmaxy(stdscr), getmaxx(stdscr));
     mainMenu->RedrawMenu();
   }
 } // TODO Add back in

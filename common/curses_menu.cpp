@@ -76,7 +76,6 @@ void CursesMenu::MoveWindow() {
 
 // Clears, repositions, resizes, redraws and posts the window
 void CursesMenu::DrawMenu() {
-  // werase(menuWin);
   if (cntrd == true) {
     CenterWindow();
   } else {
@@ -105,11 +104,15 @@ void CursesMenu::DestroyMenu() {
   for (int i = 0; i < nItems; i++) {
     free_item(items[i]);
   }
+// Clears menu and its parent for redrawing
+void CursesMenu::ClearWindow() {
+  werase(menuWin);
+  werase(parent);
 }
 
 // Unposts menu and redraws.
 void CursesMenu::RedrawMenu() {
-  clear();
+  ClearWindow();
   unpost_menu(menu);
   DrawMenu();
 }
