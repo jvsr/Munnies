@@ -58,8 +58,10 @@ void CursesMenu::SetWindowDim() {
   const int iposX = GetIPosX();
   const int iposY = GetIPosY();
 
-  SetIDimX(iposX + dimX > parentX ? dimX - iposX - 1 : dimX);
-  SetIDimY(iposY + dimY > parentY ? dimY - iposY - 1 : dimY);
+  SetIDimX(iposX + dimX > parentX ? dimX - (dimX + iposX - parentX) : dimX);
+  SetIDimY(iposY + dimY > parentY ? dimY - (dimY + iposY - parentY) : dimY);
+}
+
 }
 
 // Resizes the window with the current window dimensions.
