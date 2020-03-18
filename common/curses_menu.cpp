@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 13:57:09 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/12 19:11:59 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/18 17:46:58 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,26 @@ void CursesMenu::SetWindowDim() {
   SetIDimY(iposY + dimY > parentY ? dimY - (dimY + iposY - parentY) : dimY);
 }
 
+// Connects the main- and subwindow to the menu with corresponding sizes
+void  CursesMenu::SetMenuWindows() {
+  const int idimX = GetIDimX();
+  const int idimY = GetIDimY();
+
+  set_menu_win(menu, menuWin);
+  set_menu_sub(menu, derwin(menuWin,
+    idimY - 2 > 0 ? idimY - 2 : 0,
+    idimX - 2 > 0 ? idimX - 2 : 0,
+    idimY > 1 ? 1 : 0,
+    idimX > 1 ? 1 : 0
+  ));
+}
+
+// Set the correct menu format, based on the current dimensions
+void CursesMenu::SetMenuFormat() {
+  int y = GetIDimY() - 2 > 0 ? GetIDimY() - 2 : 0;
+  int x = 1;
+
+  set_menu_format(menu, y, x);
 }
 
 // Resizes the window with the current window dimensions.
@@ -87,23 +107,11 @@ void CursesMenu::DrawMenu() {
   // Creates a box around the edges of the menu window.
   box(menuWin, 0, 0);
   // Sets the menu window and subwindow to the earlier created window.
-  set_menu_win(menu, menuWin);
-  set_menu_sub(menu, derwin(menuWin, 6, 38, 1, 1));
+  SetMenuWindows();
+  SetMenuFormat();
   post_menu(menu);
-} // TODO don't redraw on every refresh
-
-// Creates menu items and its pointer.
-void CursesMenu::CreateMenu() {
-  menu = new_menu(items);
 }
 
-// Destroys menu and its items.
-void CursesMenu::DestroyMenu() {
-  unpost_menu(menu);
-  free_menu(menu);
-  for (int i = 0; i < nItems; i++) {
-    free_item(items[i]);
-  }
 // Clears menu and its parent for redrawing
 void CursesMenu::ClearWindow() {
   werase(menuWin);
@@ -141,3 +149,4 @@ CursesMenu::CursesMenu(const int nOptions, const std::pair<const char*, const ch
 }
 // TODO Add option for title.
 // TODO Add sizing of submenu.
+// TODO Add userdata of returnvalues.

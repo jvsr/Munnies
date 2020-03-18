@@ -6,7 +6,7 @@
 /*   By: jvisser <jvisser@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/08 19:41:36 by jvisser        #+#    #+#                */
-/*   Updated: 2020/03/12 18:44:59 by jvisser       ########   odam.nl         */
+/*   Updated: 2020/03/18 17:26:51 by jvisser       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ class CursesMenu {
 
   // Window managers.
   void DrawMenu();
-  void CreateMenu();
+  void ClearWindow();
   void RedrawMenu();
-  void DestroyMenu();
 
   // Option managers.
   void IncOption();
@@ -103,6 +102,8 @@ class CursesMenu {
   void CenterWindow();
   void SetWindowPos();
   void SetWindowDim();
+  void SetMenuWindows();
+  void SetMenuFormat();
 };
 // TODO implement boxing feature so that offscreen doesnt get boxed.
 #endif
