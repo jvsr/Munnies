@@ -6,7 +6,7 @@
 #    By: jvisser <jvisser@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/20 20:45:02 by jvisser        #+#    #+#                 #
-#    Updated: 2020/03/11 17:00:14 by jvisser       ########   odam.nl          #
+#    Updated: 2020/03/17 18:03:51 by jvisser       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ HEADER = init.h \
 CFLAGS = -Wall -Wextra -Werror -Wpedantic
 CC = g++
 SILENCE = &> /dev/null
-LIB_DEP= -L$(HOME)/.brew/opt/ncurses/lib -lmenu -lncurses
+LIB_DEP= -L$(shell brew --cellar)/ncurses/6.1/lib -lmenu -lncurses
 
 ANSI_BOLD_RED=\033[1;31m
 ANSI_BOLD_GREEN=\033[1;32m
